@@ -9,7 +9,7 @@ public class Launcher {
         while (game.hasGameEnded() == false) {
             game.nextPlayer(sc.nextInt());
             game.printBoard();
-            game.isWin();
+            game.checkForWin();
         }
 
     }

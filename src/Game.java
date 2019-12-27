@@ -102,7 +102,7 @@ public class Game {
         }
     }
 
-    public void isWin() {
+    public void checkForWin() {
         String winX = "XXX";
         String winO = "OOO";
 
@@ -123,9 +123,9 @@ public class Game {
                 winX.equals(match6) ||
                 winX.equals(match7) ||
                 winX.equals(match8)
-        ) {
-            win = true;
-            System.out.println("PLAYER \"X\" HAS WON!");
+                ) {
+                    win = true;
+                    System.out.println("PLAYER \"X\" HAS WON!");
         } else if (winO.equals(match1) ||
                 winO.equals(match2) ||
                 winO.equals(match3) ||
@@ -134,9 +134,11 @@ public class Game {
                 winO.equals(match6) ||
                 winO.equals(match7) ||
                 winO.equals(match8)
-        ) {
-            win = true;
-            System.out.println("PLAYER \"O\" HAS WON!");
+                ) {
+                    win = true;
+                    System.out.println("PLAYER \"O\" HAS WON!");
+        } else if (move == 9) {
+            System.out.println("It's a draw!");
         }
     }
 
