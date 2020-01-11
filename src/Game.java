@@ -5,158 +5,58 @@ public class Game {
 
     private boolean win;
     private int move;
-    private String player;
-    private String pos;
+    private int playerPos;
     private String playerChar;
-    private String[][] board = {{" ", " ", " "},
-                                {" ", " ", " "},
-                                {" ", " ", " "}};
+    private String[] pos = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
 
     Scanner sc = new Scanner(System.in);
     Random r = new Random();
 
-
     public Game() {
-        move = 0;
+        move = 1;
         win = false;
         playerChar = "X";
         System.out.println("Welcome to the TicTacToe game. Chose position (1-9)");
     }
 
     public boolean hasGameEnded() {
-        return win || move == 9;
+        return win || move == 10;
     }
 
     public void nextMove() {
-        move++;
+
         if (move % 2 == 1) {
             System.out.println("Player X:");
-            player = "user";
             playerChar = "X";
+            playerPos = sc.nextInt();
         } else {
             System.out.println("Computer:");
-            player = "PC";
             playerChar = "O";
+            playerPos = r.nextInt(9)+1;
         }
-    }
 
-    public int nextPlayer() {
-        if (player.equals("user")) {
-            return sc.nextInt();
+        if ( !pos[playerPos-1].equals(" ") ) {
+            System.out.println("This filed is taken");
         } else {
-            return r.nextInt(9)+1;
-        }
-    }
-
-    public boolean isFieldTaken() {
-        return !pos.equals(" ");
-    }
-
-    public void chosePosition(int position) {
-        switch (position) {
-            case 1:
-                pos = board[0][0];
-                if (isFieldTaken()) {
-                    System.out.println("Field is taken. Try again.");
-                    move--;
-                } else {
-                    board[0][0] = playerChar;
-                }
-                break;
-            case 2:
-                pos = board[0][1];
-                if (isFieldTaken()) {
-                    System.out.println("Field is taken. Try again.");
-                    move--;
-                } else {
-                    board[0][1] = playerChar;
-                }
-                break;
-            case 3:
-                pos = board[0][2];
-                if (isFieldTaken()) {
-                    System.out.println("Field is taken. Try again.");
-                    move--;
-                } else {
-                    board[0][2] = playerChar;
-                }
-                break;
-            case 4:
-                pos = board[1][0];
-                if (isFieldTaken()) {
-                    System.out.println("Field is taken. Try again.");
-                    move--;
-                } else {
-                    board[1][0] = playerChar;
-                }
-                break;
-            case 5:
-                pos = board[1][1];
-                if (isFieldTaken()) {
-                    System.out.println("Field is taken. Try again.");
-                    move--;
-                } else {
-                    board[1][1] = playerChar;
-                }
-                break;
-            case 6:
-                pos = board[1][2];
-                if (isFieldTaken()) {
-                    System.out.println("Field is taken. Try again.");
-                    move--;
-                } else {
-                    board[1][2] = playerChar;
-                }
-                break;
-            case 7:
-                pos = board[2][0];
-                if (isFieldTaken()) {
-                    System.out.println("Field is taken. Try again.");
-                    move--;
-                } else {
-                    board[2][0] = playerChar;
-                }
-                break;
-            case 8:
-                pos = board[2][1];
-                if (isFieldTaken()) {
-                    System.out.println("Field is taken. Try again.");
-                    move--;
-                } else {
-                    board[2][1] = playerChar;
-                }
-                break;
-            case 9:
-                pos = board[2][2];
-                if (isFieldTaken()) {
-                    System.out.println("Field is taken. Try again.");
-                    move--;
-                } else {
-                    board[2][2] = playerChar;
-                }
-                break;
-            default:
-                System.out.println("Input not recognized.");
-                move--;
-                break;
+            pos[playerPos-1] = playerChar;
+            move++;
         }
 
-        checkForWin();
         printBoard();
+        checkForWin();
     }
 
     public void checkForWin() {
-        String[] combo = {board[0][0] + board[0][1] + board[0][2],
-                            board[1][0] + board[1][1] + board[1][2],
-                            board[2][0] + board[2][1] + board[2][2],
-                            board[0][0] + board[1][0] + board[2][0],
-                            board[0][1] + board[1][1] + board[2][1],
-                            board[0][2] + board[1][2] + board[2][2],
-                            board[0][0] + board[1][1] + board[2][2],
-                            board[0][2] + board[1][1] + board[2][0]
+        String[] matches = {pos[0] + pos[1] + pos[2],
+                pos[3] + pos[4] + pos[5],
+                pos[6] + pos[7] + pos[8],
+                pos[0] + pos[3] + pos[6],
+                pos[1] + pos[4] + pos[7],
+                pos[2] + pos[5] + pos[8],
+                pos[0] + pos[4] + pos[8],
+                pos[2] + pos[4] + pos[6]
         };
-
-        for (String match : combo) {
+        for (String match : matches) {
             if ("XXX".equals(match)) {
                 win = true;
                 System.out.println("PLAYER X HAS WON!");
@@ -165,13 +65,29 @@ public class Game {
                 System.out.println("PLAYER O HAS WON!");
             }
         }
-
-        if (move == 9) {
+        if (move == 10 && !win) {
             System.out.println("DRAW!");
         }
-
     }
 
+    /**
+     * Prints out the board after each move
+     */
+    public void printBoard() {
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                System.out.print(pos[row*3 + col]);
+                if (col < 2) {
+                    System.out.print("|");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+     * Prints out the board to show positions at the beginning of the game
+     */
     public void printBoardWithPositions() {
         int i = 0;
         for (int row = 0; row < 3; row++) {
@@ -180,19 +96,6 @@ public class Game {
                 System.out.print(i);
                 if (col < 2) {
                     System.out.print("|");        // this adds column borders just to make board a bit prettier
-                }
-            }
-            System.out.println();
-        }
-    }
-
-//    Prints out the board after each move
-    public void printBoard() {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-                System.out.print(board[row][col]);
-                if (col < 2) {
-                    System.out.print("|");
                 }
             }
             System.out.println();
