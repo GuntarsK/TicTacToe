@@ -13,20 +13,19 @@ public class Game {
     Random r = new Random();
 
     public Game() {
-        move = 1;
+        move = 0;
         win = false;
         playerChar = "X";
         System.out.println("Welcome to the TicTacToe game. Chose position (1-9)");
     }
 
     public boolean hasGameEnded() {
-        return win || move == 10;
+        return win || move == 9;
     }
 
     public void nextMove() {
-
-        if (move % 2 == 1) {
-            System.out.println("Player X:");
+        if (move % 2 == 0) {
+            System.out.println("Your move:");
             playerChar = "X";
             playerPos = sc.nextInt();
         } else {
@@ -48,24 +47,24 @@ public class Game {
 
     public void checkForWin() {
         String[] matches = {pos[0] + pos[1] + pos[2],
-                pos[3] + pos[4] + pos[5],
-                pos[6] + pos[7] + pos[8],
-                pos[0] + pos[3] + pos[6],
-                pos[1] + pos[4] + pos[7],
-                pos[2] + pos[5] + pos[8],
-                pos[0] + pos[4] + pos[8],
-                pos[2] + pos[4] + pos[6]
+                            pos[3] + pos[4] + pos[5],
+                            pos[6] + pos[7] + pos[8],
+                            pos[0] + pos[3] + pos[6],
+                            pos[1] + pos[4] + pos[7],
+                            pos[2] + pos[5] + pos[8],
+                            pos[0] + pos[4] + pos[8],
+                            pos[2] + pos[4] + pos[6]
         };
         for (String match : matches) {
             if ("XXX".equals(match)) {
                 win = true;
-                System.out.println("PLAYER X HAS WON!");
+                System.out.println("YOU WON!");
             } else if ("OOO".equals(match)) {
                 win = true;
-                System.out.println("PLAYER O HAS WON!");
+                System.out.println("COMPUTER HAS WON!");
             }
         }
-        if (move == 10 && !win) {
+        if (move == 9 && !win) {
             System.out.println("DRAW!");
         }
     }
