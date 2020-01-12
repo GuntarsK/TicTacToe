@@ -1,29 +1,26 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Game {
-
+class Game {
     private boolean win;
     private int move;
-    private int playerPos;
-    private String playerChar;
-    private String[] pos = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+    private String[] board = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+    private Scanner sc = new Scanner(System.in);
+    private Random r = new Random();
 
-    Scanner sc = new Scanner(System.in);
-    Random r = new Random();
-
-    public Game() {
+    Game() {
         move = 0;
         win = false;
-        playerChar = "X";
         System.out.println("Welcome to the TicTacToe game. Chose position (1-9)");
     }
 
-    public boolean hasGameEnded() {
+    boolean hasGameEnded() {
         return win || move == 9;
     }
 
-    public void nextMove() {
+    void nextMove() {
+        int playerPos;
+        String playerChar;
         if (move % 2 == 0) {
             System.out.println("Your move:");
             playerChar = "X";
@@ -34,10 +31,10 @@ public class Game {
             playerPos = r.nextInt(9)+1;
         }
 
-        if ( !pos[playerPos-1].equals(" ") ) {
+        if ( !board[playerPos -1].equals(" ") ) {
             System.out.println("This filed is taken");
         } else {
-            pos[playerPos-1] = playerChar;
+            board[playerPos -1] = playerChar;
             move++;
         }
 
@@ -45,20 +42,20 @@ public class Game {
         checkForWin();
     }
 
-    public void checkForWin() {
-        String[] matches = {pos[0] + pos[1] + pos[2],
-                            pos[3] + pos[4] + pos[5],
-                            pos[6] + pos[7] + pos[8],
-                            pos[0] + pos[3] + pos[6],
-                            pos[1] + pos[4] + pos[7],
-                            pos[2] + pos[5] + pos[8],
-                            pos[0] + pos[4] + pos[8],
-                            pos[2] + pos[4] + pos[6]
+    private void checkForWin() {
+        String[] matches = {board[0] + board[1] + board[2],
+                            board[3] + board[4] + board[5],
+                            board[6] + board[7] + board[8],
+                            board[0] + board[3] + board[6],
+                            board[1] + board[4] + board[7],
+                            board[2] + board[5] + board[8],
+                            board[0] + board[4] + board[8],
+                            board[2] + board[4] + board[6]
         };
         for (String match : matches) {
             if ("XXX".equals(match)) {
                 win = true;
-                System.out.println("YOU WON!");
+                System.out.println("CONGRATS! YOU WON!");
             } else if ("OOO".equals(match)) {
                 win = true;
                 System.out.println("COMPUTER HAS WON!");
@@ -72,10 +69,10 @@ public class Game {
     /**
      * Prints out the board after each move
      */
-    public void printBoard() {
+    private void printBoard() {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                System.out.print(pos[row*3 + col]);
+                System.out.print(board[row*3 + col]);
                 if (col < 2) {
                     System.out.print("|");
                 }
@@ -87,12 +84,11 @@ public class Game {
     /**
      * Prints out the board to show positions at the beginning of the game
      */
-    public void printBoardWithPositions() {
-        int i = 0;
+    void printBoardWithPositions() {
+        int i = 1;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                i++;
-                System.out.print(i);
+                System.out.print(i++);
                 if (col < 2) {
                     System.out.print("|");        // this adds column borders just to make board a bit prettier
                 }
