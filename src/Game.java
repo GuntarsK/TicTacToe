@@ -21,21 +21,22 @@ class Game {
     void nextMove() {
         int playerPos;
         String playerChar;
+
         if (move % 2 == 0) {
             System.out.println("Your move:");
             playerChar = "X";
             playerPos = sc.nextInt();
         } else {
-            System.out.println("Computer:");
+            System.out.println("Computer's move:");
             playerChar = "O";
-            playerPos = r.nextInt(9)+1;
+            playerPos = r.nextInt(9) + 1;
         }
 
-        if ( !board[playerPos -1].equals(" ") ) {
-            System.out.println("This filed is taken");
-        } else {
-            board[playerPos -1] = playerChar;
+        if ( board[playerPos - 1].equals(" ") ) {
+            board[playerPos - 1] = playerChar;
             move++;
+        } else {
+            System.out.println("This filed is taken");
         }
 
         printBoard();
