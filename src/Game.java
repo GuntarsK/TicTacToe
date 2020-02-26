@@ -11,7 +11,7 @@ class Game {
     Game() {
         move = 0;
         win = false;
-        System.out.println("Welcome to the TicTacToe game. Chose position (1-9)");
+        System.out.println("Welcome to the TicTacToe game. Chose board position: 1 - 9");
     }
 
     boolean hasGameEnded() {
