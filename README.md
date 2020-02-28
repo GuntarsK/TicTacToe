@@ -1,1 +1,1 @@
-Simple Tic Tac Toe game made while learning programming
+Simple Tic Tac Toe console game. Created while learning programming.
