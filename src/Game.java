@@ -5,8 +5,6 @@ class Game {
     private boolean win;
     private int move;
     private String[] board = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
-    private Scanner sc = new Scanner(System.in);
-    private Random r = new Random();
 
     Game() {
         move = 0;
@@ -19,6 +17,8 @@ class Game {
     }
 
     void nextMove() {
+        Scanner sc = new Scanner(System.in);
+        Random r = new Random();
         int playerPos;
         String playerChar;
 
@@ -47,6 +47,9 @@ class Game {
         checkForWin();
     }
 
+    /**
+     * One-dimensional array mapped to horizontal/vertical/diagonal combinations of X or O.
+     */
     private void checkForWin() {
         String[] matches = {board[0] + board[1] + board[2],
                             board[3] + board[4] + board[5],
