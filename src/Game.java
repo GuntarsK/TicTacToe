@@ -23,7 +23,7 @@ class Game {
         String playerChar;
 
         if (move % 2 == 0) {
-            System.out.println("Player X:");
+            System.out.println("Your move:");
             playerChar = "X";
             while(!sc.hasNext("[1-9]")){
                 System.out.println("Input not recognized. Chose a number between 1 and 9.");
@@ -32,6 +32,11 @@ class Game {
             playerPos = sc.nextInt();
         } else {
             System.out.println("Computer's move:");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             playerChar = "O";
             playerPos = r.nextInt(9) + 1;
         }
